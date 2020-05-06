@@ -9,14 +9,11 @@ script:
     - docker run -e CI=true agedi/react-test npm run test
 
 after_success:
-    # this is where we're going to build the prod versions of our images and push them to dockerhub 
     - docker build -t agedi/multi-client ./client
     - docker build -t agedi/multi-server ./server
     - docker build -t agedi/multi-nginx ./nginx
     - docker build -t agedi/multi-worker ./worker
-    # log in to Docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    # Take those images and push them to docker hub
     - docker push agedi/multi-client
     - docker push agedi/multi-server
     - docker push agedi/multi-nginx

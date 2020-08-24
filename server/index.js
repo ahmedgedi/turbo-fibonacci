@@ -9,7 +9,7 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-// Postgres client set up
+// Postgres set up
 
 const { Pool } = require('pg')
 const pgClient = new Pool({
@@ -20,13 +20,13 @@ const pgClient = new Pool({
     port: keys.pgPort
 })
 
-pgClient.on('error', () => console.log('Lost PG connection'))
+pgClient.on('connect', () => {
+    pgClient
+      .query('CREATE TABLE IF NOT EXISTS values (number INT)')
+      .catch((err) => console.log(err));
+});
 
-pgClient
-    .query('CREATE TABLE IF NOT EXISTS values (number INT)')
-    .catch(err => console.log(err))
-
-// Redis Client setup
+// Redis setup
 
 const redis = require('redis')
 const redisClient = redis.createClient({

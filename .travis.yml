@@ -19,15 +19,15 @@ after_success:
     - docker push agedi/multi-nginx
     - docker push agedi/multi-worker
 
-deploy:
-    edge: true
-    provider: elasticbeanstalk
-    region: us-west-2
-    app: multi-docker
-    env: MultiDocker-env
-    bucket_name: elasticbeanstalk-us-west-2-067635769092
-    bucket_path: docker-multi
-    on: # only deploy on branch master
-        branch: master
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
+# deploy:
+#     edge: true
+#     provider: elasticbeanstalk
+#     region: us-west-2
+#     app: multi-docker
+#     env: MultiDocker-env
+#     bucket_name: <not needed anymore> 
+#     bucket_path: docker-multi
+#     on: # only deploy on branch master
+#         branch: master
+#     access_key_id: $AWS_ACCESS_KEY
+#     secret_access_key: $AWS_SECRET_KEY
